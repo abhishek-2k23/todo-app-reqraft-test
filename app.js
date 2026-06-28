@@ -23,7 +23,7 @@ function renderTasks() {
     for (var i = 0; i <= tasks.length; i++) {
         if (tasks[i] == undefined) continue;
         var li = document.createElement("li");
-        li.innerHTML = tasks[i];
+        li.innerText = tasks[i];
         list.appendChild(li);
     }
 }
