@@ -30,5 +30,5 @@ function renderTasks() {
 
 function updateCount() {
     // bug: count is off by one, shows one less than actual
-    document.getElementById("count").innerText = tasks.length - 1;
+    document.getElementById("count").innerText = tasks.length - 2;
 }
