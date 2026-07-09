@@ -1,24 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo App</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>My Todo List</h1>
-        <p class="task-count">Tasks: <span id="count">0</span></p>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <h1 class="app__title">Todo</h1>
+        <p class="app__subtitle">Add tasks with an optional description and due date.</p>
+      </header>
 
-        <div class="input-area">
-            <input type="text" id="taskInput" placeholder="Enter a task...">
-            <button onclick="addTask()">Add Task</button>
+      <section class="card" aria-labelledby="create-task-title">
+        <h2 id="create-task-title" class="card__title">Create a task</h2>
+
+        <form id="taskForm" class="form" novalidate>
+          <div class="form__row">
+            <label class="form__label" for="title">Title <span class="req" aria-hidden="true">*</span></label>
+            <input
+              id="title"
+              name="title"
+              class="form__input"
+              type="text"
+              placeholder="e.g., Pay rent"
+              autocomplete="off"
+              maxlength="120"
+              required
+            />
+            <p id="titleError" class="form__error" role="alert" aria-live="polite"></p>
+          </div>
+
+          <div class="form__row">
+            <label class="form__label" for="description">Description (optional)</label>
+            <textarea
+              id="description"
+              name="description"
+              class="form__textarea"
+              placeholder="Add details..."
+              rows="3"
+              maxlength="500"
+            ></textarea>
+            <p id="descriptionError" class="form__error" role="alert" aria-live="polite"></p>
+          </div>
+
+          <div class="form__row">
+            <label class="form__label" for="dueDate">Due date</label>
+            <input id="dueDate" name="dueDate" class="form__input" type="date" />
+            <p id="dueDateError" class="form__error" role="alert" aria-live="polite"></p>
+          </div>
+
+          <div class="form__actions">
+            <button id="addTaskBtn" class="btn" type="submit">Add task</button>
+            <button id="clearAllBtn" class="btn btn--secondary" type="button">Clear all</button>
+          </div>
+
+          <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="tasks-title">
+        <div class="card__header">
+          <h2 id="tasks-title" class="card__title">Tasks</h2>
+          <p class="meta">
+            <span>Count:</span> <strong id="taskCount">0</strong>
+          </p>
         </div>
 
-        <ul id="taskList"></ul>
-    </div>
+        <ul id="taskList" class="tasks" aria-live="polite" aria-relevant="additions removals"></ul>
+      </section>
 
-    <script src="app.js"></script>
-</body>
+      <section class="card" aria-labelledby="docs-title">
+        <h2 id="docs-title" class="card__title">Task creation docs</h2>
+        <div class="prose">
+          <ul>
+            <li><strong>Title</strong> is required and must be at most 120 characters.</li>
+            <li><strong>Description</strong> is optional (max 500 characters).</li>
+            <li><strong>Due date</strong> is optional. If provided, it must be today or later.</li>
+            <li>On success, a confirmation message is shown and the task appears immediately.</li>
+            <li>Tasks are stored in <code>localStorage</code> so they persist across refreshes.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="tests-title">
+        <div class="card__header">
+          <h2 id="tests-title" class="card__title">In-browser unit tests</h2>
+          <button id="runTestsBtn" class="btn btn--secondary" type="button">Run tests</button>
+        </div>
+        <pre id="testOutput" class="test-output" aria-live="polite"></pre>
+      </section>
+    </main>
+  </body>
 </html>
